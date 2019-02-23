@@ -1,0 +1,13 @@
+#+title: disproofpoint
+
+Look at demangling certain annoying corporate decisions.
+
+* Status
+
+This is a playground with barely working anything.  Do not use it.
+
+The following will likely destroy all that you hold dear:
+
+#+BEGIN_EXAMPLE
+  $ python3 disproofpoint.py mangled.mbox pristine.mbox
+#+END_EXAMPLE

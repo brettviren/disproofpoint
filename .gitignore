@@ -1,0 +1,6 @@
+*.mbox
+venv
+__pycache__
+URLDefenseDecode.py
+*~
+*.pyc
