@@ -68,13 +68,18 @@ def demangle_text(mangled_text):
 if '__main__' == __name__:
     import sys
     import email
-    msg = email.message_from_file(open(sys.argv[1]))
+    try:
+        ifname = sys.argv[1]
+    except IndexError:
+        ifname = "/dev/stdin"
+    try:
+        ofname = sys.argv[2]
+    except IndexError:
+        ofname = "/dev/stdout"
+        
+    msg = email.message_from_file(open(ifname))
     text = demangle_text(msg.get_payload(decode=True).decode('utf-8'))
     msg.set_payload(text)
-    try:
-        fname = sys.argv[2]
-        open(fname,'w').write(msg.as_string())
-    except IndexError:
-        print (msg.as_string())
+    open(ofname,'w').write(msg.as_string())
         
     
