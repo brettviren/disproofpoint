@@ -68,18 +68,28 @@ def demangle_text(mangled_text):
 if '__main__' == __name__:
     import sys
     import email
+    import mailbox
     try:
         ifname = sys.argv[1]
     except IndexError:
         ifname = "/dev/stdin"
+    if ifname == "-" or ifname == "--":
+        ifname = "/dev/stdin"
     try:
         ofname = sys.argv[2]
     except IndexError:
-        ofname = "/dev/stdout"
+        ofname = None
         
     msg = email.message_from_file(open(ifname))
-    text = demangle_text(msg.get_payload(decode=True).decode('utf-8'))
+    #text = demangle_text(msg.get_payload(decode=True).decode('utf-8'))
+    text = demangle_text(msg.get_payload(decode=True).decode('utf-8', errors='ignore'))
     msg.set_payload(text)
-    open(ofname,'w').write(msg.as_string())
-        
-    
+
+    #
+    # open(ofname,'w').write(demangle_text(open(ifname).read()))
+    if ofname is None:
+        open('/dev/stdout','w').write(msg.as_string())
+    else:
+        mbox = mailbox.mbox(ofname)
+        mbox.add(msg)
+        mbox.flush()

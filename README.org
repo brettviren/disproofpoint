@@ -1,13 +1,31 @@
 #+title: disproofpoint
 
-Look at demangling certain annoying corporate decisions.
+Demangle certain annoying corporate decisions.
 
 * Status
 
-This is a playground with barely working anything.  Do not use it.
+Use this at your own risk.  It will likely destroy all that you hold
+dear.  Not recommended for use by the "click every damn link" crowd.
 
-The following will likely destroy all that you hold dear:
+* Usage
+
+As an mbox filter, it needs an output file holding *one* message:
 
 #+BEGIN_EXAMPLE
   $ python3 disproofpoint.py mangled.mbox pristine.mbox
 #+END_EXAMPLE
+
+As a pipe filter, it will interpret the stream as *one* message and dump
+out *one* message.  An mbox header is not included. 
+
+#+BEGIN_EXAMPLE
+  $ python3 disproofpoint.py < mangled.msg > pristine.msg
+#+END_EXAMPLE
+
+Piping works with GNUS (type ~|~ while in ~Summary~ buffer).
+
+* To Do
+
+- [ ] support multi-message mbox
+- [ ] support Maildir 
+- [ ] test with procmail
